@@ -85,6 +85,6 @@ export default {
 </script>
 <style>
 body {
-  font-family: 'Prompt', serif;
+  font-family: 'Chakra Petch', sans-serif;
 }
 </style>
