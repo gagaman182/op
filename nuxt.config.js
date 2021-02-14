@@ -79,12 +79,17 @@ export default {
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
+        'vue-sweetalert2/nuxt',
     ],
     /*
      ** Axios module configuration
      ** See https://axios.nuxtjs.org/options
      */
-    axios: {},
+    axios: {
+        baseURL: 'http://localhost/op/backend/',
+        // baseURL: "http://192.168.5.187/leave/backend/"
+        // baseURL: "http://192.168.4.3/webapp/leave/backend/"
+    },
     /*
      ** vuetify module configuration
      ** https://github.com/nuxt-community/vuetify-module

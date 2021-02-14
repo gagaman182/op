@@ -33,7 +33,7 @@
             </v-row>
             <v-card-actions>
               <v-spacer />
-              <v-btn color="#fce38a" x-large dark>
+              <v-btn color="#fce38a" @click="runop()" x-large dark>
                 <fa icon="server" class="fa-2x" />
               </v-btn>
             </v-card-actions>
@@ -194,24 +194,176 @@
                     </thead>
 
                     <tbody>
-                      <tr v-for="item in desserts" :key="item.name">
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.calories }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.calories }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.calories }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.calories }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.calories }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.calories }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.calories }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.calories }}</td>
-                        <td>{{ item.calories }}</td>
+                      <tr v-if="skeleton">
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
+                      </tr>
+                      <tr
+                        v-if="loading"
+                        v-for="item in opdata"
+                        :key="item.name"
+                      >
+                        <td>
+                          <h4>{{ item.HOSPCODE }}</h4>
+                        </td>
+                        <td>
+                          <H3>{{ item.PERSON }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.VISIT }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.MONEYS }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.name }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.calories }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.name }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.calories }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.name }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.calories }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.name }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.calories }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.name }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.calories }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.name }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.calories }}</H3>
+                        </td>
+                        <td>
+                          <H3>{{ item.calories }}</H3>
+                        </td>
                       </tr>
                     </tbody>
                   </template>
@@ -221,16 +373,96 @@
           </v-card-text>
         </v-card></v-flex
       >
+      <v-dialog v-model="dialog" hide-overlay persistent width="300">
+        <v-card color="#ff75a0" dark>
+          <v-card-text>
+            ระบบกำลังประมวลผล
+            <v-progress-linear
+              indeterminate
+              color="white"
+              class="mb-0"
+            ></v-progress-linear>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data: () => ({
-    monthstart: new Date().toISOString().substr(0, 10),
-    monthend: new Date().toISOString().substr(0, 10),
+    monthstart: new Date().toISOString().substr(0, 7),
+    monthend: new Date().toISOString().substr(0, 7),
+    message: '',
+    dialog: false,
+    opdata: '',
+    loading: false,
+    skeleton: true,
   }),
+  // watch: {
+  //   dialog(val) {
+  //     if (!val) return
+
+  //     setTimeout(() => (this.dialog = false), 4000)
+  //   },
+  // },
+  mounted() {
+    this.fetch_op()
+  },
+  methods: {
+    runop() {
+      this.dialog = true
+      this.loading = false
+      this.skeleton = true
+      if (this.monthend < this.monthstart) {
+        this.$swal({
+          title: 'แจ้งเตือน',
+          text: 'ระบุเดือนไม่ถูกต้อง',
+          icon: 'error',
+          confirmButtonText: 'ตกลง',
+        })
+      } else {
+        axios
+          .post(`${this.$axios.defaults.baseURL}runop.php`, {
+            monthstart: this.monthstart,
+            monthend: this.monthend,
+          })
+          .then((response) => {
+            this.message = response.data
+            if (this.message[0].message === 'เพิ่มข้อมูลสำเร็จ') {
+              this.$swal({
+                title: 'สถานะการเพิ่ม',
+                text: this.message[0].message,
+                icon: 'success',
+                confirmButtonText: 'ตกลง',
+              })
+              this.dialog = false
+              this.loading = true
+              this.skeleton = false
+              this.fetch_op()
+            } else {
+              this.$swal({
+                title: 'สถานะการเพิ่ม',
+                text: this.message[0].message,
+                icon: 'error',
+                confirmButtonText: 'ตกลง',
+              })
+            }
+          })
+      }
+    },
+    async fetch_op() {
+      await axios
+        .get(`${this.$axios.defaults.baseURL}opdata.php`)
+        .then((response) => {
+          this.opdata = response.data
+          this.loading = true
+          this.skeleton = false
+        })
+    },
+  },
 }
 </script>
 <style>
