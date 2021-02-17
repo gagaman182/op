@@ -69,9 +69,9 @@ export default {
           to: '/',
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
+          icon: 'mdi-card-account-details ',
+          title: 'รายละเอียด',
+          to: '/detail',
         },
       ],
       miniVariant: true,

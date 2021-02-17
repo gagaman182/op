@@ -279,7 +279,7 @@ include 'conn.php';
           
             
             $return_message = array();
-            $row_array['message'] = "เพิ่มข้อมูลสำเร็จ";
+            $row_array['message'] = "ประมวลผลข้อมูลสำเร็จ";
             array_push($return_message,$row_array);
         
         
@@ -287,7 +287,7 @@ include 'conn.php';
        else {
             // echo "Error: " . $sql . "<br>" . $conn->error;
             $return_message = array();
-            $row_array['message'] = "เพิ่มข้อมูลไม่สำเร็จ";
+            $row_array['message'] = "ประมวลผลข้อมูลไม่สำเร็จ";
             array_push($return_message,$row_array);
             
         }

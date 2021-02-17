@@ -58,6 +58,24 @@
                     <thead>
                       <tr>
                         <v-card-actions>
+                          <h3 v-if="skeleton">
+                            <v-skeleton-loader
+                              class="mx-auto"
+                              max-width="100"
+                              type="text"
+                            ></v-skeleton-loader>
+                          </h3>
+                          <v-alert v-if="loading" outlined color="#9a8194" text>
+                            <h3>
+                              ข้อมูลถูกประมวลในเดือน {{ months_1 }} &nbsp;{{
+                                years_1
+                              }}
+                              {{ center }}&nbsp; {{ months_2 }} &nbsp;{{
+                                years_2
+                              }}
+                            </h3>
+                          </v-alert>
+
                           <v-spacer />
                           <v-btn color="#1687a7" x-large dark>
                             <v-icon x-large> mdi-microsoft-excel </v-icon>
@@ -310,7 +328,7 @@
                       </tr>
                       <tr
                         v-if="loading"
-                        v-for="item in opdata"
+                        v-for="item in opddata"
                         :key="item.name"
                       >
                         <td>
@@ -326,40 +344,40 @@
                           <H3>{{ item.MONEYS }}</H3>
                         </td>
                         <td>
-                          <H3>{{ item.name }}</H3>
+                          <H3>{{ item.DOCTORS }}</H3>
                         </td>
                         <td>
-                          <H3>{{ item.calories }}</H3>
+                          <H3>{{ item.NURSES }}</H3>
                         </td>
                         <td>
-                          <H3>{{ item.name }}</H3>
+                          <H3>{{ item.DOCTORANDNURSE }}</H3>
                         </td>
                         <td>
-                          <H3>{{ item.calories }}</H3>
+                          <H3>{{ item.GENERAL_DOCTOR }}</H3>
                         </td>
                         <td>
-                          <H3>{{ item.name }}</H3>
+                          <H3>{{ item.GENERAL_NURSE }}</H3>
                         </td>
                         <td>
-                          <H3>{{ item.calories }}</H3>
+                          <H3>{{ item.GENERAL_DOCTOR_NURSE }}</H3>
                         </td>
                         <td>
-                          <H3>{{ item.name }}</H3>
+                          <H3>{{ item.CHRONIC_DOCTOR }}</H3>
                         </td>
                         <td>
-                          <H3>{{ item.calories }}</H3>
+                          <H3>{{ item.CHRONIC_NURSE }}</H3>
                         </td>
                         <td>
-                          <H3>{{ item.name }}</H3>
+                          <H3>{{ item.CHRONIC_DOCTOR_NURSE }}</H3>
                         </td>
                         <td>
-                          <H3>{{ item.calories }}</H3>
+                          <H3>{{ item.DENT_DOCTORS }}</H3>
                         </td>
                         <td>
-                          <H3>{{ item.name }}</H3>
+                          <H3>{{ item.DENT_NURSES }}</H3>
                         </td>
                         <td>
-                          <H3>{{ item.calories }}</H3>
+                          <H3>{{ item.DENT_DOCTORANDNURSE }}</H3>
                         </td>
                         <td>
                           <H3>{{ item.calories }}</H3>
@@ -391,23 +409,23 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   data: () => ({
     monthstart: new Date().toISOString().substr(0, 7),
     monthend: new Date().toISOString().substr(0, 7),
     message: '',
     dialog: false,
-    opdata: '',
+    opddata: '',
     loading: false,
     skeleton: true,
+    months_1: '0',
+    years_1: '0',
+    months_2: '0',
+    years_2: '0',
+    center: '-',
   }),
-  // watch: {
-  //   dialog(val) {
-  //     if (!val) return
 
-  //     setTimeout(() => (this.dialog = false), 4000)
-  //   },
-  // },
   mounted() {
     this.fetch_op()
   },
@@ -457,9 +475,71 @@ export default {
       await axios
         .get(`${this.$axios.defaults.baseURL}opdata.php`)
         .then((response) => {
-          this.opdata = response.data
+          this.opddata = response.data
           this.loading = true
           this.skeleton = false
+          this.years_1 = this.opddata[0].YEARS_1
+          this.years_2 = this.opddata[0].YEARS_2
+
+          //YEAR1
+          if (this.opddata[0].MONTHS_1 == 'January') {
+            this.months_1 = 'มกราคม'
+          } else if (this.opddata[0].MONTHS_1 == 'February') {
+            this.months_1 = 'กุมภาพันธ์'
+          } else if (this.opddata[0].MONTHS_1 == 'March') {
+            this.months_1 = 'มีนาคม'
+          } else if (this.opddata[0].MONTHS_1 == 'April') {
+            this.months_1 = 'เมษายน'
+          } else if (this.opddata[0].MONTHS_1 == 'May') {
+            this.months_1 = 'พฤษภาคม'
+          } else if (this.opddata[0].MONTHS_1 == 'June') {
+            this.months_1 = 'มิถุนายน'
+          } else if (this.opddata[0].MONTHS_1 == 'July') {
+            this.months_1 = 'กรกฏาคม'
+          } else if (this.opddata[0].MONTHS_1 == 'August') {
+            this.months_1 = 'สิงหาคม'
+          } else if (this.opddata[0].MONTHS_1 == 'September') {
+            this.months_1 = 'กันยายน'
+          } else if (this.opddata[0].MONTHS_1 == 'October') {
+            this.months_1 = 'ตุลาคม'
+          } else if (this.opddata[0].MONTHS_1 == 'November') {
+            this.months_1 = 'พฤศจิการยน'
+          } else if (this.opddata[0].MONTHS_1 == 'December') {
+            this.months_1 = 'ธันวาคม'
+          }
+
+          //YEAR2
+          if (this.opddata[0].MONTHS_2 == 'January') {
+            this.months_2 = 'มกราคม'
+          } else if (this.opddata[0].MONTHS_2 == 'February') {
+            this.months_1 = 'กุมภาพันธ์'
+          } else if (this.opddata[0].MONTHS_2 == 'March') {
+            this.months_2 = 'มีนาคม'
+          } else if (this.opddata[0].MONTHS_2 == 'April') {
+            this.months_2 = 'เมษายน'
+          } else if (this.opddata[0].MONTHS_2 == 'May') {
+            this.months_2 = 'พฤษภาคม'
+          } else if (this.opddata[0].MONTHS_2 == 'June') {
+            this.months_2 = 'มิถุนายน'
+          } else if (this.opddata[0].MONTHS_2 == 'July') {
+            this.months_2 = 'กรกฏาคม'
+          } else if (this.opddata[0].MONTHS_2 == 'August') {
+            this.months_2 = 'สิงหาคม'
+          } else if (this.opddata[0].MONTHS_2 == 'September') {
+            this.months_2 = 'กันยายน'
+          } else if (this.opddata[0].MONTHS_2 == 'October') {
+            this.months_2 = 'ตุลาคม'
+          } else if (this.opddata[0].MONTHS_2 == 'November') {
+            this.months_2 = 'พฤศจิการยน'
+          } else if (this.opddata[0].MONTHS_2 == 'December') {
+            this.months_2 = 'ธันวาคม'
+          }
+
+          if (this.months_1 == this.months_2) {
+            this.months_2 = ''
+            this.years_2 = ''
+            this.center = ''
+          }
         })
     },
   },
