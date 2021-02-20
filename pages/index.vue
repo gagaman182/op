@@ -79,7 +79,10 @@
                           <v-spacer />
                           <v-btn v-if="loading" color="#1687a7" x-large dark>
                             <v-icon x-large> mdi-microsoft-excel </v-icon>
-                            <export-excel :data="opddata_thainame">
+                            <export-excel
+                              :data="opddata_thainame"
+                              name="ข้อมูลการให้บริการ.xls"
+                            >
                               Excel
                             </export-excel>
                           </v-btn>
@@ -94,7 +97,7 @@
                   <template v-slot:default>
                     <thead>
                       <tr>
-                        <th class="text-center" colspan="16">
+                        <th class="text-center" colspan="17">
                           <!-- <h2>คำนวณค่ารักษา OPD ผู้ป่วยบัตรทอง</h2> -->
                           <!-- <v-chip color="#ff75a0" label dark>
                             คำนวณค่ารักษา OPD ผู้ป่วยบัตรทอง
@@ -123,7 +126,7 @@
                             <v-spacer />
                           </v-toolbar>
                         </th>
-                        <th class="text-center" colspan="3">
+                        <th class="text-center" colspan="4">
                           <v-toolbar color="#fce38a" dark>
                             <v-spacer />
                             <v-card-title class="headline">
@@ -178,13 +181,7 @@
                           <v-chip color="#ff75a0" label dark> จนท. </v-chip>
                         </th>
                         <th class="text-center">
-                          <v-chip color="#ff75a0" label dark> รวม </v-chip>
-                        </th>
-                        <th class="text-center">
-                          <v-chip color="#ff75a0" label dark> แพทย์ </v-chip>
-                        </th>
-                        <th class="text-center">
-                          <v-chip color="#ff75a0" label dark> จนท. </v-chip>
+                          <v-chip color="#ff75a0" label dark> ว่าง </v-chip>
                         </th>
                         <th class="text-center">
                           <v-chip color="#ff75a0" label dark> รวม </v-chip>
@@ -195,6 +192,17 @@
                         <th class="text-center">
                           <v-chip color="#ff75a0" label dark> จนท. </v-chip>
                         </th>
+
+                        <th class="text-center">
+                          <v-chip color="#ff75a0" label dark> รวม </v-chip>
+                        </th>
+                        <th class="text-center">
+                          <v-chip color="#ff75a0" label dark> แพทย์ </v-chip>
+                        </th>
+                        <th class="text-center">
+                          <v-chip color="#ff75a0" label dark> จนท. </v-chip>
+                        </th>
+
                         <th class="text-center">
                           <v-chip color="#ff75a0" label dark> รวม </v-chip>
                         </th>
@@ -216,6 +224,13 @@
 
                     <tbody>
                       <tr v-if="skeleton">
+                        <td>
+                          <v-skeleton-loader
+                            class="mx-auto"
+                            max-width="50"
+                            type="text"
+                          ></v-skeleton-loader>
+                        </td>
                         <td>
                           <v-skeleton-loader
                             class="mx-auto"
@@ -353,6 +368,9 @@
                           <H3>{{ item.NURSES }}</H3>
                         </td>
                         <td>
+                          <H3>{{ item.NULLS }}</H3>
+                        </td>
+                        <td>
                           <H3>{{ item.DOCTORANDNURSE }}</H3>
                         </td>
                         <td>
@@ -361,6 +379,7 @@
                         <td>
                           <H3>{{ item.GENERAL_NURSE }}</H3>
                         </td>
+
                         <td>
                           <H3>{{ item.GENERAL_DOCTOR_NURSE }}</H3>
                         </td>
@@ -370,6 +389,7 @@
                         <td>
                           <H3>{{ item.CHRONIC_NURSE }}</H3>
                         </td>
+
                         <td>
                           <H3>{{ item.CHRONIC_DOCTOR_NURSE }}</H3>
                         </td>
@@ -429,6 +449,8 @@ export default {
     months_2: '0',
     years_2: '0',
     center: '-',
+    monthstartstore: '',
+    monthendstore: '',
   }),
 
   mounted() {
@@ -437,6 +459,10 @@ export default {
   },
   methods: {
     runop() {
+      this.months_1 = ''
+      this.months_2 = ''
+      this.years_1 = ''
+      this.years_2 = ''
       this.dialog = true
       this.loading = false
       this.skeleton = true
@@ -455,7 +481,7 @@ export default {
           })
           .then((response) => {
             this.message = response.data
-            if (this.message[0].message === 'เพิ่มข้อมูลสำเร็จ') {
+            if (this.message[0].message === 'ประมวลผลข้อมูลสำเร็จ') {
               this.$swal({
                 title: 'สถานะการเพิ่ม',
                 text: this.message[0].message,
@@ -486,6 +512,9 @@ export default {
           this.skeleton = false
           this.years_1 = this.opddata[0].YEARS_1
           this.years_2 = this.opddata[0].YEARS_2
+
+          this.monthstartstore = this.opddata[0].MONTHSTART
+          this.monthendstore = this.opddata[0].MONTHEND
 
           //YEAR1
           if (this.opddata[0].MONTHS_1 == 'January') {
@@ -561,5 +590,15 @@ export default {
 <style>
 .v-input {
   font-size: 1.6em;
+}
+table.v-table tbody td:first-child,
+table.v-table tbody td:not(:first-child),
+table.v-table tbody th:first-child,
+table.v-table tbody th:not(:first-child),
+table.v-table thead td:first-child,
+table.v-table thead td:not(:first-child),
+table.v-table thead th:first-child,
+table.v-table thead th:not(:first-child) {
+  padding: 0 10px;
 }
 </style>

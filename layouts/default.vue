@@ -73,6 +73,16 @@ export default {
           title: 'รายละเอียด',
           to: '/detail',
         },
+        {
+          icon: 'mdi-cash-multiple ',
+          title: 'กลุ่มค่าใช้จ่าย',
+          to: '/all',
+        },
+        {
+          icon: 'mdi-pill  ',
+          title: 'ยาเรื้อรัง',
+          to: '/drug24',
+        },
       ],
       miniVariant: true,
       right: true,

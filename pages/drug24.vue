@@ -5,8 +5,8 @@
         <v-card>
           <v-toolbar color="#95e1d3" dark>
             <v-card-title class="headline">
-              <v-icon x-large class="fa-2x"> mdi-cash-multiple </v-icon>
-              &nbsp; ตารางแสดงข้อมูลตามกลุ่มค่าใช้จ่าย
+              <v-icon x-large class="fa-2x"> mdi-pill </v-icon>
+              &nbsp; ตารางแสดงข้อมูลยาเรื้อรัง
             </v-card-title>
           </v-toolbar>
 
@@ -20,7 +20,7 @@
                       <v-icon x-large> mdi-microsoft-excel </v-icon>
                       <export-excel
                         :data="opddata_detail_thainame"
-                        name="ข้อมูลตามกลุ่มค่าใช้จ่าย.xls"
+                        name="ข้อมูลยาเรื้อรัง.xls"
                       >
                         Excel
                       </export-excel>
@@ -55,15 +55,15 @@ export default {
   data: () => ({
     search: '',
     headers: [
-      { text: 'ประเภท', value: 'GROUPS', align: 'center' },
-      { text: 'ตรวจโดยแพทย์', value: 'DOCTORS', align: 'center' },
-      { text: 'ตรวจโดยพยาบาล', value: 'NURSES', align: 'center' },
-      { text: 'ว่าง', value: 'NULLS', align: 'center' },
-      { text: 'ค่าใช้จ่าย', value: 'MONEYS', align: 'center' },
+      { text: 'รหัสยา', value: 'drugcode', align: 'center' },
+      { text: 'ชื่อยา', value: 'drugname', align: 'center' },
+      { text: 'รหัส24หลัก', value: 'drugcode24', align: 'center' },
+      { text: 'จำนวน', value: 'unit', align: 'center' },
     ],
 
     opddata_detail: [],
     opddata_detail_thainame: [],
+    opddata_detail_date: [],
     loading: false,
     skeleton: true,
   }),
@@ -73,26 +73,38 @@ export default {
     },
   },
   mounted() {
-    this.fetch_opdetail()
-    this.fetch_opdetail_thainame()
+    this.fetch_opdetail_date()
   },
   methods: {
-    async fetch_opdetail() {
+    async fetch_opdetail_date() {
       await axios
-        .get(`${this.$axios.defaults.baseURL}opdata_group.php`)
+        .get(`${this.$axios.defaults.baseURL}opdata.php`)
         .then((response) => {
-          this.opddata_detail = response.data
-          this.loading = true
-          this.skeleton = false
-        })
-    },
-    async fetch_opdetail_thainame() {
-      await axios
-        .get(`${this.$axios.defaults.baseURL}opdata_group_thainame.php`)
-        .then((response) => {
-          this.opddata_detail_thainame = response.data
-          this.loading = true
-          this.skeleton = false
+          this.opddata_detail_date = response.data
+
+          this.monthstartstore = this.opddata_detail_date[0].MONTHSTART
+          this.monthendstore = this.opddata_detail_date[0].MONTHEND
+
+          axios
+            .post(`${this.$axios.defaults.baseURL}drug24.php`, {
+              monthstartstore: this.monthstartstore,
+              monthendstore: this.monthendstore,
+            })
+            .then((response) => {
+              this.opddata_detail = response.data
+
+              this.loading = true
+              this.skeleton = false
+            })
+
+          axios
+            .post(`${this.$axios.defaults.baseURL}drug24_thainame.php`, {
+              monthstartstore: this.monthstartstore,
+              monthendstore: this.monthendstore,
+            })
+            .then((response) => {
+              this.opddata_detail_thainame = response.data
+            })
         })
     },
   },
