@@ -77,8 +77,11 @@
                           </v-alert>
 
                           <v-spacer />
-                          <v-btn color="#1687a7" x-large dark>
+                          <v-btn v-if="loading" color="#1687a7" x-large dark>
                             <v-icon x-large> mdi-microsoft-excel </v-icon>
+                            <export-excel :data="opddata_thainame">
+                              Excel
+                            </export-excel>
                           </v-btn>
                         </v-card-actions>
                       </tr>
@@ -411,12 +414,14 @@
 import axios from 'axios'
 
 export default {
+  name: 'index',
   data: () => ({
     monthstart: new Date().toISOString().substr(0, 7),
     monthend: new Date().toISOString().substr(0, 7),
     message: '',
     dialog: false,
     opddata: '',
+    opddata_thainame: '',
     loading: false,
     skeleton: true,
     months_1: '0',
@@ -428,6 +433,7 @@ export default {
 
   mounted() {
     this.fetch_op()
+    this.fetch_op_thainame()
   },
   methods: {
     runop() {
@@ -540,6 +546,13 @@ export default {
             this.years_2 = ''
             this.center = ''
           }
+        })
+    },
+    async fetch_op_thainame() {
+      await axios
+        .get(`${this.$axios.defaults.baseURL}opdata_thainame.php`)
+        .then((response) => {
+          this.opddata_thainame = response.data
         })
     },
   },

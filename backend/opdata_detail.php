@@ -14,7 +14,11 @@
  )AS DATE_VISIT_THAI,  CONCAT(temp_opd.HOSPCODE,'-',chospital.hosname) AS HOSPCODE_FULL
 FROM
  temp_opd
-INNER JOIN chospital on temp_opd.HOSPCODE = chospital.hoscode ";
+INNER JOIN chospital on temp_opd.HOSPCODE = chospital.hoscode
+WHERE temp_opd.DRUG_ALL IS NOT NULL OR 
+temp_opd.PROCED_ALL IS NOT NULL OR 
+temp_opd.SUPPLIES_ALL IS NOT NULL
+AND symptoms NOT LIKE '%เยี่ยม%' ";
 
 
 $return_arr = array();
