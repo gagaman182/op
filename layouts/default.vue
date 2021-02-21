@@ -31,7 +31,11 @@
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
 
-      <v-toolbar-title v-text="title" />
+      <!-- <v-toolbar-title v-text="title" /> -->
+      <v-card-title class="headline">
+        ระบบประมวลผลข้อมูลการให้บริการผู้ป่วยนอก
+        สำนักงานเครือข่ายและปฐมภูมิโรงพยาบาลหาดใหญ่
+      </v-card-title>
       <v-spacer />
     </v-app-bar>
     <v-main>
@@ -50,7 +54,10 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span
+        >&copy; {{ new Date().getFullYear() }} สำนักงานเครือข่ายและปฐมภูมิ
+        กลุ่มงานเวชกรรมสังคม โรงพยาบาลหาดใหญ่
+      </span>
     </v-footer>
   </v-app>
 </template>
