@@ -523,6 +523,8 @@ export default {
           this.monthstartstore = this.opddata[0].MONTHSTART
           this.monthendstore = this.opddata[0].MONTHEND
 
+          this.center = '-'
+
           //YEAR1
           if (this.opddata[0].MONTHS_1 == 'January') {
             this.months_1 = 'มกราคม'
