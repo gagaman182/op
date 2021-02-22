@@ -97,7 +97,7 @@
                   <template v-slot:default>
                     <thead>
                       <tr>
-                        <th class="text-center" colspan="17">
+                        <th class="text-center" colspan="18">
                           <!-- <h2>คำนวณค่ารักษา OPD ผู้ป่วยบัตรทอง</h2> -->
                           <!-- <v-chip color="#ff75a0" label dark>
                             คำนวณค่ารักษา OPD ผู้ป่วยบัตรทอง
@@ -110,13 +110,14 @@
                       </tr>
 
                       <tr>
-                        <th class="text-center" rowspan="2">
+                        <!-- <th class="text-center" colspan="2">
                           <v-toolbar color="#fce38a" dark>
                             <v-card-title class="headline">
                               สถานบริการ</v-card-title
                             >
                           </v-toolbar>
-                        </th>
+                        </th> -->
+                        <th class="text-center" colspan="1"></th>
                         <th class="text-center" colspan="3">
                           <v-toolbar color="#fce38a" dark>
                             <v-spacer />
@@ -165,6 +166,11 @@
                       </tr>
 
                       <tr>
+                        <th class="text-center">
+                          <v-chip color="#95e1d3" label dark>
+                            สถานบริการ
+                          </v-chip>
+                        </th>
                         <th class="text-center">
                           <v-chip color="#ff75a0" label dark> คน </v-chip>
                         </th>
@@ -463,6 +469,7 @@ export default {
       this.months_2 = ''
       this.years_1 = ''
       this.years_2 = ''
+      this.center = ''
       this.dialog = true
       this.loading = false
       this.skeleton = true

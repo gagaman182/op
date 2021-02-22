@@ -86,7 +86,8 @@ export default {
      ** See https://axios.nuxtjs.org/options
      */
     axios: {
-        baseURL: 'http://localhost/op/backend/',
+        baseURL: 'http://localhost/oponline/backend/',
+        // baseURL: 'http://localhost/op/backend/',
         // baseURL: "http://192.168.5.187/leave/backend/"
         // baseURL: "http://192.168.4.3/webapp/leave/backend/"
     },
